@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentore Bank - Dados do Cartão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003366; /* Fundo azul do Mentore Bank */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #003366;
+            font-size: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-group input:focus {
+            border-color: #003366;
+            outline: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #001d33;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- Logo do Mentore Bank -->
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWUAAABkCAMAAABpcNGYAAAAh1BMVEX///+Hh4cqdLSdnZ3Z2dmOjo7h4eFRjsLDw8OUudnKysro6Ojk7vbX5fG7u7ulpaWhwt5sn8tflsc3fLiXl5e0tLT39/eurq7w8PCNtdfR0dG80+fX19eRkZGoqKj19fVEhb07f7p5qNCsyeLF2eru9Pm0zuXK3Ox0pM5WkcSFr9Te6vSlxN+HtLYaAAAL7UlEQVR4nO2da3+yOBOHsZ5RUauAWm3r2dp+/8/3mHNIZgZtYfdx4f9if907EODKJJkkkxgEJSv5Ppwm/f6y35/s30bHsh9XQSVv1+5LVtvpviZdpA6X2Quo131S9LNWabQoOs9n0M8njJhrtizWoKNGo9HuFJrlM2hPMS6c86LB1Cwuw6fQyG2NIW33hT2vxSm3C8vvKbR0zPbrcvMw+svdq2Pgr8OCHlhBysMvm/Dl9G2lHd+uNuntWzGPrB7l89ZQnEIUR1fL9egX8szKUT4Zgrtv5JpkYkpiV8RDq0Z5b+wYY8x0NE33pYCnVoyytuTZKedK44YUYM3Vonx4xHvQ5rz883MrRfl79pB5asP/s+NcJcpJ90HjPMhSmY3++OQqUb4+3AKcJebPP84eVYjy8Be92VsxbUaFKJ9lx/fQTZNCBicVonwUg+YHp9qm/K4/jrQrRDnos47s/OBNR9ZlTv/45OejvOisV60O2h1RyYfrEhzwJaPTz2SyP4BOdLLvY5Y8aK3XrQHZMy5W4U2xoMz+DFvU5fKm1u2uVSt3caWzdi9hb4Te9tFhL7PG2anHh+OG1Dz2lx4+wnGbSIY1WprJ5u3ldK83Meg11as0owF2Vafh653MN1mn6hsa7ffwg7iSvcDa/P+iJ+GsoKtb8Vy/QTMi4AzS7OvOs9kNYic5JD9H6OTO58+u90wqd8bZZzURC30HKMMUhD6itnNxjJZgxAtCWUXHepRXNElv42SLwUkciPxaUyZJRCbDOkDrUrNlbpUC4I1BGk3/whs4NOOey5hfjryOyFt84iJjgO5nh1C287WfZTCYA1c2Gj06OaJgJTuAMR+E0GO9FvTSjTZkoqAtY3VsAJZJo7GBK4pF2XmjbIEvkGwbqVd88Jfd9J7ckQxqSCz+UaOQEHmULnFLK+CyJvJK6DeAOduUew69e7OdO/WvYy5tj9M4tYpnHChPCUxG+5qRtWYy+7rsLplVP3wYYkNuvr83rY8Aak4nim+SrTj7Mw4RyHaBNOMoisd0zoay3ZTOx2mIZrsZx3FqZ5sNXhiolLbqzpOVJhkHA32X6jwzyaD0/NzLtq8aiOGPWRKcIJB1gbaVFzMwPRbWr93hL6+N2ax1j2ZaWwCzomwgA36VgdwMlYs3MH1h27LmRDW6qd17rtW1IZ0MfvpRGa4TD3DWnGEneaGIxtazTM+LOAT5lLXL18yQMr2a/xWSsm4uUsBR1jYxzhbASsHZmJt68JM+nGbdTZb1tA35nK+S5cUbcE9UKwIOYGR31nY66I58aySwJZeytiOvBV6rYvUKUHy9KmD3jbi0TXgdbqKKb6yvlf/gdbVJxmtFk4E2Y0K0C2q6E5pWkibnB2MtNpjJMeVSVrUeQDXACjBjYxuwFo2JRGW6qgBipDwsE6CTvao0lCB/oFcLRjPU0RjjMETKHMwxj7JqL0CXTXVK7gfalNsg5BVVArobF3QS8RTQWTAj2DGR7FXDHe1IyFllf+5+gFYObRsgqDzKTdRQrK9oJ+BNXPDwa0MlysGj+hpZInCB6N6BSnYNbIg3CUJLxNTFe4ENfRCIipNCSTmUJUbU6eyBhWBRhotnRZadyYEbc0q9gjJmJHlgVwotCREPyEiEB9J1/10YBzKgDHGUOZRT8C0tzSFjMZSRjxd3EZGmdlUXF2OuqGx66WQnVTC84o9XwTHOSHtBVZvgA0+lKScNqvCY1lDV15TbcPEMoJuyEsW7YX/SBR3TyRHwAXJpipx7EwNDZx22ZV4KkvhsyKOiKa/yTFkZS/YzNGWkSYjyTFkbMysIurYR9dR8Qbax7Oe0ykxXqMkIgcwspeg305SFoYDdt1IPIKYoY6XepIpAaq6bDP4H7CEFCiOaLEor23CJEcl1ROlH2Hu2Ww/pmh3pV3ZFU6abRC5Z+zOvoygjN8p2qDWgZPo82vBbdHIHsBNrmihP2YY5RDFy9dBCoCkLHOhsPVdbV22tJm3K0DINok1QPOXj/ZBfsjGL5VCWfSqWq9DYN1tJGXsdaNIVU1A85e8HKGdH4OVQFq+ItnlCou3ONLKSMjaBjk6D/zOURw9Qzo5LyqScs4EKaPMFZbQvdqb2/2nK5/shOyEy5VDO+QIhlDIaePAAZVZSRVOWttzN18UZHf6Ltoy2GOigQ7xNu5mvHmt0iqYsZzHorwJVDuUBlaiE9n4o5Rzn3lXRlANB+RcxyeVQlo4tEd8SqBkUwJNDKd/VqRoVTrkLdGx3qSR/WRCERuZa0tvLDMJzKEO3ECqc8o5T/kWEYUmUxQAMj4UJ4BFuDmVZeOSQ0lLhlOV+kcd3s5dEWU7FUBFNY6Ag8iinwKfjKpyyHPyRGx+O0KkvJVGWdZuY15HTGNlGJY8yOF3qPlqP6wunLCO/Z4Qx98EdgSVRlpZKdFTv0P15lOXcB2HMbPl5Lhvu4inLbX/4rlTRpngT0GVRllaHZiyjKpyccynLdT28ZY4tNsVTDmRoCxYNJ5e4veSyKKsFH4TYh1wlddyFXMqyJUKWUnThCheyBMpqkA1vfzjKMEUvuqg0ympJH+SRNEFTzqesjLkJu+IqAkH0uiVQDi6C4+wA3HKUlr71Ov3SKKv5tTmAWcXueD5IPuVEBcxApafCoaTjUgZlHSbnBxeNVJJfAuVRVqFWGz9oSS2JeKOWfMp6Jt/PVk8/b2ThlUHZTMy9ZkfaR2qP+68py6/FbgysOffIWQTT0Y/eLXdQNhNzTrZmN4G6vxTK1mkk1oEvo6WOt4WGhr+mLP1daqVTh422zcFzHzqaFfqCeyibqKC2tcXIitjVDkg5lIMfM408e71O9j/9ixUmDo6/f01Zuq6NNMSnFaxY73ncW63C2A6FBwaGd1EOrA0n87QXrsLo3QoTN+VeEuXghJyMyATv1f49ZcB4PAHbj5TAfRv3UQ6ATU/Qy5RF2fRznpBA/N9T1rsFsCA7pjW2AwR+4p2UgxWWbWYLWWmUg2QJMn7Fpp5/T9kyVGLvKrTDzY3ON7qXMpKt0yHyf0Ln/KGwFvsJPBmdVfzeeYy7+M524QigfRiZrCsuGXfR8XaNzdEmRrRCd80fu5tAGVDnPSKyyHgkOHFQKfs6OIZa6DixD/H7vFK74fmz5ugMJZ28ntMFLjWIrW2m7ZSw/M492elsI3tDZBPohVcpvk32ppA+dDek777peJhcL9PLdfmWtzk4idKIWDn66KU9IrnTi9N7JtUHq9uFaRytclqDQZzeswlaabEW2YYdevGrVq1atWrVqlWrVq1atWrVqlWr1v+j3iZC+wMaanaaTKBYh+B8u21oXeRM5h5vyWeTOnn0VM7/kqbWKiS8MZ+FVW6hhL69ctn19umy3Qjy1Aq2+vlZ5R+Bsygjh8DyE2sgY+Z7oJUBU5RZxOCfT0p/at0oz/o38V8D+oSu4JFmUEwlp6xMlKDMDyIr6PeFnlSMsv4LMlm52Quo72I/vzyaAqfMI6yK+XWhp5WhzAKhgG0w1xu+LZgiKMsNSjjlVzQmojoylL/B4IWEEb6R/vJvlZTFwRMoZXY6xVfhv8r5ZDKUmSPgd3/sDKvj+QXaU8co91XRYJQr715wacpvM9Bgp9xb+4SOBmKEh7f2YMacZoTyufLuBRfr89g+ZeYHdP3VdeYsn/hJV77LzCkzB4I5zTDlHTslpLhf43xaWf7yFnCXb87yLBGOhueLccr8vyeMsoiiKuvdn0eM8udN/Gga39/qSle5CwSoCsosaXukKKMn81ZHul0eTgF7Pat/6wMus6R85k4zRnk3A3vOisn4GMxncys3c8Muu5umgElKynwv9BmhvOOH5nVrT05RZn86XVySCb52D3FUlI9b1oGClKciW/LswiqIpHx6ycip+IqyugwbYW+R2aYKyVA+zjxzfWU/Iy108i1SU5Zn52GzRW/1wERT/maoslu2hjbZV29voqEstuGiM5+7l7//SNZzS41K+L4MZ2t+3x5z7z0XxFAWc9AoZT4rV+mxiT2Lv3Ua3k97xvnoGaRFmU9C42slfJx9z286/VdlKH9NnLbznG1Cpq7LbFM+k5T5WdTAJEmtEvQ/+DSqFWijB0AAAAAASUVORK5CYII=" alt="Logo Mentore Bank"> <!-- Substitua pelo link do logo -->
+            <h1>Inserir Dados do Cartão</h1>
+        </div>
+        
+        <form id="cardForm">
+            <div class="input-group">
+                <label for="numeroCartao">Número do Cartão</label>
+                <input type="text" id="numeroCartao" name="numeroCartao" required maxlength="19" placeholder="Ex: 1234 5678 9012 3456">
+                <div id="numeroCartaoError" class="error"></div>
+            </div>
+            
+            <div class="input-group">
+                <label for="nomeTitular">Nome do Titular</label>
+                <input type="text" id="nomeTitular" name="nomeTitular" required placeholder="Ex: João da Silva">
+                <div id="nomeTitularError" class="error"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="validade">Data de Validade</label>
+                <input type="text" id="validade" name="validade" required maxlength="5" placeholder="MM/AAAA">
+                <div id="validadeError" class="error"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" required maxlength="3" placeholder="Ex: 123">
+                <div id="cvvError" class="error"></div>
+            </div>
+            
+            <button type="submit" class="btn-submit">Confirmar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("cardForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            // Limpar mensagens de erro
+            document.getElementById("numeroCartaoError").textContent = '';
+            document.getElementById("nomeTitularError").textContent = '';
+            document.getElementById("validadeError").textContent = '';
+            document.getElementById("cvvError").textContent = '';
+
+            // Validar os campos
+            const numeroCartao = document.getElementById("numeroCartao").value.trim();
+            const nomeTitular = document.getElementById("nomeTitular").value.trim();
+            const validade = document.getElementById("validade").value.trim();
+            const cvv = document.getElementById("cvv").value.trim();
+
+            // Validar número do cartão (formato básico)
+            const numeroCartaoRegex = /^[0-9]{4}\s?[0-9]{4}\s?[0-9]{4}\s?[0-9]{4}$/;
+            if (!numeroCartao || !numeroCartaoRegex.test(numeroCartao)) {
+                document.getElementById("numeroCartaoError").textContent = 'Número do cartão inválido.';
+                isValid = false;
+            }
+
+            if (!nomeTitular) {
+                document.getElementById("nomeTitularError").textContent = 'Nome do titular é obrigatório.';
+                isValid = false;
+            }
+
+            // Validar data de validade (formato MM/AAAA)
+            const validadeRegex = /^(0[1-9]|1[0-2])\/\d{4}$/;
+            if (!validade || !validadeRegex.test(validade)) {
+                document.getElementById("validadeError").textContent = 'Data de validade inválida (MM/AAAA).';
+                isValid = false;
+            }
+
+            if (!cvv || cvv.length !== 3 || isNaN(cvv)) {
+                document.getElementById("cvvError").textContent = 'CVV deve ter 3 dígitos numéricos.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Redireciona para o site do Mentore Bank após a validação
+                window.location.href = "https://www.mentorebank.com.br"; <!-- Substitua pelo link correto -->
+            }
+        });
+    </script>
+</body>
+</html>
